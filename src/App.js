@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -39,7 +39,7 @@ const App = () => {
     };
 
     return (
-        <>
+        <Router>
             {/* Header with Logo and Navbar */}
             <div className="header-logo">
                 <Link to="/">
@@ -95,7 +95,7 @@ const App = () => {
                     element={isLoggedIn ? <Dashboard handleLogout={handleLogout} /> : <Navigate to="/login" />}
                 />
             </Routes>
-        </>
+        </Router>
     );
 };
 
