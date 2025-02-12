@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -8,19 +8,21 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('https://cododojo-backend.onrender.com/register', {
+            const response = await axios.post('https://cododojo-backend.onrender.com/register', {
                 username,
                 email,
                 password,
             });
-            setSuccessMessage('User registered successfully!');
+            setSuccessMessage(response.data.message || 'User registered successfully!');
             setErrorMessage('');
+            setTimeout(() => navigate('/login'), 2000);
         } catch (err) {
-            setErrorMessage('Registration failed. Please try again.');
+            setErrorMessage(err.response?.data?.message || 'Registration failed. Please try again.');
             setSuccessMessage('');
         }
     };
@@ -62,9 +64,7 @@ const Register = () => {
             </form>
             <div className="switch-link-container">
                 <span>Already have an account? </span>
-                <Link to="/login" className="switch-link">
-                    Login
-                </Link>
+                <Link to="/login" className="switch-link">Login</Link>
             </div>
         </div>
     );

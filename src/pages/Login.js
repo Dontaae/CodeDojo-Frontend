@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ const Login = ({ setIsLoggedIn }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [stayLoggedIn, setStayLoggedIn] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,7 +16,6 @@ const Login = ({ setIsLoggedIn }) => {
             const response = await axios.post('https://cododojo-backend.onrender.com/login', { username, password });
             const token = response.data.access_token;
 
-            // Save token based on "Stay Logged In" checkbox state
             if (stayLoggedIn) {
                 localStorage.setItem('token', token);
             } else {
@@ -23,8 +24,9 @@ const Login = ({ setIsLoggedIn }) => {
 
             setErrorMessage('');
             setIsLoggedIn(true);
+            navigate('/dashboard');
         } catch (err) {
-            setErrorMessage('Invalid credentials!');
+            setErrorMessage(err.response?.data?.message || 'Invalid credentials!');
         }
     };
 
@@ -56,10 +58,7 @@ const Login = ({ setIsLoggedIn }) => {
                         required
                         style={{ paddingRight: '50px' }}
                     />
-                    <span
-                        onClick={togglePasswordVisibility}
-                        className="show-password"
-                    >
+                    <span onClick={togglePasswordVisibility} className="show-password">
                         {showPassword ? 'Hide' : 'Show'}
                     </span>
                 </div>
