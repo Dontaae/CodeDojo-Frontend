@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "homepage": ".",
-  "proxy": "https://codedojo-backend.onrender.com",
+  "proxy": "https://cododojo-backend.onrender.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
