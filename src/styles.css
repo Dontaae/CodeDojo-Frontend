@@ -1,0 +1,396 @@
+/* General styles for the entire app */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0d1117;
+    /* Dark mode background */
+    color: #c9d1d9;
+    /* Dark mode text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode styling */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Centered logo styling */
+.header-logo {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.ninja-logo {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.ninja-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Navbar styles */
+.navbar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+/* Logout button styling */
+.navbar .logout-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.navbar .logout-btn:hover {
+    background-color: darkred;
+}
+
+/* Light mode button styling */
+.navbar .light-mode-btn {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode .navbar .light-mode-btn {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+/* Home Page styles */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+    gap: 40px;
+}
+
+/* Hero section styling */
+.home-header {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff;
+    text-transform: uppercase;
+}
+
+.home-subtext {
+    font-size: 22px;
+    color: #00bcd4;
+    margin-bottom: 20px;
+}
+
+/* Mission statement styling */
+.mission-statement {
+    background-color: #161b22;
+    color: #c9d1d9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px;
+    animation: slideIn 1.5s ease;
+}
+
+body.light-mode .mission-statement {
+    background-color: #ffffff;
+    color: #333;
+}
+
+.mission-statement h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 10px;
+}
+
+.mission-statement p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Enter button styling */
+.enter-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.enter-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+}
+
+/* Login and Register Page styles */
+.login-container,
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container form,
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+body.light-mode .login-container form,
+body.light-mode .register-container form {
+    background-color: white;
+    color: #333;
+}
+
+form div {
+    margin-bottom: 15px;
+    text-align: left;
+    position: relative;
+    /* Needed for absolute positioning of "Show" button */
+}
+
+form label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Ensure all input fields are full width */
+form input {
+    width: 100%;
+    /* Change from 90% to 100% */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect width */
+    padding-right: 50px;
+    /* Leaves space for "Show" text */
+}
+
+/* Position the Show/Hide Password text */
+.show-password {
+    position: absolute;
+    right: 15px;
+    /* Moves it inside the input box */
+    top: 62%;
+    /* Centers it vertically */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #007bff;
+    font-size: 14px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the Stay Logged In checkbox and label */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    /* Add some spacing from the input fields */
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: -110px;
+    /* Space between checkbox and label */
+    cursor: pointer;
+}
+
+.checkbox-container label {
+    font-size: 14px;
+    color: #c9d1d9;
+    cursor: pointer;
+
+}
+
+/* Error and success messages */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: green;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Links for switching between login and register */
+.switch-link-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.switch-link {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.switch-link:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+/* Dashboard-specific styles */
+.dashboard-container {
+    text-align: center;
+    padding: 50px;
+}
+
+.dashboard-header {
+    font-size: 36px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.dashboard-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+body.light-mode .dashboard-card {
+    background-color: #ffffff;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dashboard-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #00bcd4;
+}
+
+.dashboard-card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
