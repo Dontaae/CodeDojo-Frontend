@@ -64,7 +64,7 @@ const Register = () => {
             </form>
             <div className="switch-link-container">
                 <span>Already have an account? </span>
-                <Link to="/login" className="switch-link">Login</Link>
+                <Link to="#/login" className="switch-link">Login</Link>
             </div>
         </div>
     );
