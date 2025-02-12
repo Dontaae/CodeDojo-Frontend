@@ -12,7 +12,7 @@ const Dashboard = ({ handleLogout }) => {
             <div className="dashboard-content">
                 <div className="dashboard-card">
                     <h2>Profile</h2>
-                    <p>Username: <strong>testuser</strong></p>
+                    <p>Username: <strong></strong></p>
                     <p>Rank: <strong>White Belt</strong></p>
                 </div>
 
