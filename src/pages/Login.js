@@ -76,7 +76,7 @@ const Login = ({ setIsLoggedIn }) => {
             </form>
             <p>
                 Don't have an account?{' '}
-                <Link to="/register" className="switch-link">Register</Link>
+                <a href="/register" className="switch-link">Register</a>
             </p>
         </div>
     );
