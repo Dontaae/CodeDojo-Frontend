@@ -1,19 +1,34 @@
+/* CSS Custom Properties for consistent theming */
+:root {
+    --primary-blue: #007bff;
+    --primary-blue-hover: #0056b3;
+    --primary-cyan: #00bcd4;
+    --dark-bg: #0d1117;
+    --dark-card-bg: #161b22;
+    --dark-text: #c9d1d9;
+    --light-bg: #f5f5f5;
+    --light-card-bg: #ffffff;
+    --light-text: #333;
+    --shadow-light: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    --shadow-heavy: 0px 8px 16px rgba(0, 0, 0, 0.4);
+    --hover-lift: translateY(-5px);
+}
+
 /* General styles for the entire app */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0d1117;
-    /* Dark mode background */
-    color: #c9d1d9;
-    /* Dark mode text color */
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Light mode styling */
 body.light-mode {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--light-bg);
+    color: var(--light-text);
 }
 
 /* Centered logo styling */
@@ -34,7 +49,7 @@ body.light-mode {
 }
 
 .ninja-logo:hover {
-    transform: scale(1.1);
+    transform: var(--hover-lift);
 }
 
 /* Navbar styles */
@@ -98,37 +113,37 @@ body.light-mode .navbar .light-mode-btn {
     font-size: 64px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #007bff;
+    color: var(--primary-blue);
     text-transform: uppercase;
 }
 
 .home-subtext {
     font-size: 22px;
-    color: #00bcd4;
+    color: var(--primary-cyan);
     margin-bottom: 20px;
 }
 
 /* Mission statement styling */
 .mission-statement {
-    background-color: #161b22;
-    color: #c9d1d9;
+    background-color: var(--dark-card-bg);
+    color: var(--dark-text);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-medium);
     width: 80%;
     max-width: 600px;
     animation: slideIn 1.5s ease;
 }
 
 body.light-mode .mission-statement {
-    background-color: #ffffff;
-    color: #333;
+    background-color: var(--light-card-bg);
+    color: var(--light-text);
 }
 
 .mission-statement h2 {
     font-size: 28px;
     font-weight: bold;
-    color: #00bcd4;
+    color: var(--primary-cyan);
     margin-bottom: 10px;
 }
 
@@ -140,7 +155,7 @@ body.light-mode .mission-statement {
 
 /* Enter button styling */
 .enter-btn {
-    background-color: #007bff;
+    background-color: var(--primary-blue);
     color: white;
     border: none;
     border-radius: 5px;
@@ -148,13 +163,13 @@ body.light-mode .mission-statement {
     font-size: 18px;
     cursor: pointer;
     text-decoration: none;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-light);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .enter-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-5px);
+    background-color: var(--primary-blue-hover);
+    transform: var(--hover-lift);
 }
 
 /* Login and Register Page styles */
@@ -172,24 +187,23 @@ body.light-mode .mission-statement {
     display: flex;
     flex-direction: column;
     width: 300px;
-    background-color: #161b22;
+    background-color: var(--dark-card-bg);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-light);
     transition: background-color 0.3s ease;
 }
 
 body.light-mode .login-container form,
 body.light-mode .register-container form {
-    background-color: white;
-    color: #333;
+    background-color: var(--light-card-bg);
+    color: var(--light-text);
 }
 
 form div {
     margin-bottom: 15px;
     text-align: left;
     position: relative;
-    /* Needed for absolute positioning of "Show" button */
 }
 
 form label {
@@ -200,27 +214,22 @@ form label {
 /* Ensure all input fields are full width */
 form input {
     width: 100%;
-    /* Change from 90% to 100% */
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-    /* Ensures padding doesn't affect width */
     padding-right: 50px;
-    /* Leaves space for "Show" text */
 }
 
 /* Position the Show/Hide Password text */
 .show-password {
     position: absolute;
     right: 15px;
-    /* Moves it inside the input box */
     top: 62%;
-    /* Centers it vertically */
     transform: translateY(-50%);
     cursor: pointer;
-    color: #007bff;
+    color: var(--primary-blue);
     font-size: 14px;
     font-weight: bold;
     background: none;
@@ -230,11 +239,11 @@ form input {
 
 form input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary-blue);
 }
 
 form button {
-    background-color: #007bff;
+    background-color: var(--primary-blue);
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -245,29 +254,34 @@ form button {
 }
 
 form button:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-blue-hover);
 }
 
 /* Styling for the Stay Logged In checkbox and label */
 .checkbox-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    width: 100%;
     margin-top: 10px;
-    /* Add some spacing from the input fields */
+    gap: 8px;
+    flex-wrap: nowrap;
 }
 
 .checkbox-container input[type="checkbox"] {
-    margin-right: -110px;
-    /* Space between checkbox and label */
+    margin-right: 10px;
     cursor: pointer;
 }
 
+/* Prevent the label text from breaking onto a new line */
 .checkbox-container label {
-    font-size: 14px;
-    color: #c9d1d9;
-    cursor: pointer;
+    white-space: nowrap;
+    margin: 0;
+    /* reset any default margins */
+}
 
+body.light-mode .checkbox-container label {
+    color: var(--light-text);
 }
 
 /* Error and success messages */
@@ -290,7 +304,7 @@ form button:hover {
 }
 
 .switch-link {
-    background-color: #007bff;
+    background-color: var(--primary-blue);
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -303,7 +317,7 @@ form button:hover {
 }
 
 .switch-link:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-blue-hover);
     text-decoration: none;
 }
 
@@ -316,7 +330,7 @@ form button:hover {
 .dashboard-header {
     font-size: 36px;
     font-weight: bold;
-    color: #007bff;
+    color: var(--primary-blue);
     margin-bottom: 30px;
     text-transform: uppercase;
 }
@@ -330,35 +344,80 @@ form button:hover {
 }
 
 .dashboard-card {
-    background-color: #161b22;
+    background-color: var(--dark-card-bg);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-medium);
     width: 300px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
 }
 
 body.light-mode .dashboard-card {
-    background-color: #ffffff;
+    background-color: var(--light-card-bg);
 }
 
 .dashboard-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.4);
+    transform: var(--hover-lift);
+    box-shadow: var(--shadow-heavy);
 }
 
 .dashboard-card h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #00bcd4;
+    color: var(--primary-cyan);
 }
 
 .dashboard-card p {
     font-size: 16px;
     margin: 5px 0;
 }
+
+/* Center the whole page & give it some breathing room */
+
+/* Light mode override */
+body.light-mode .challenge-detail-card {
+    background-color: var(--light-card-bg);
+}
+
+/* Make Monaco itself a bit taller to fill the card */
+.challenge-detail-card .monaco-editor,
+.challenge-detail-card .react-monaco-editor-container {
+    height: 60vh !important;
+    margin-bottom: 1rem;
+}
+
+/* Completed badge (for the list view) */
+.completed-badge {
+    background-color: var(--primary-cyan);
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.enter-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 
 /* Animations */
 @keyframes fadeIn {

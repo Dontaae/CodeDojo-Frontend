@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
+import {
+    Routes,
+    Route,
+    Navigate,
+    Link,
+    useNavigate,
+    useLocation
+} from 'react-router-dom';
+
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import Home from './pages/Home';
+import ChallengeList from './pages/ChallengeList';
+import ChallengeDetail from './pages/ChallengeDetail';
 
 const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLightMode, setIsLightMode] = useState(false);
-    const location = useLocation(); // Used to track the current route
+    const navigate = useNavigate();
+    const location = useLocation();
 
+    // On mount, restore login + theme
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        if (localStorage.getItem('token')) {
             setIsLoggedIn(true);
         }
-
-        // Check saved light mode preference
-        const savedMode = localStorage.getItem('theme');
-        if (savedMode === 'light') {
+        if (localStorage.getItem('theme') === 'light') {
             document.body.classList.add('light-mode');
             setIsLightMode(true);
         }
@@ -27,74 +35,126 @@ const App = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsLoggedIn(false);
+        navigate('/login', { replace: true });
     };
 
     const toggleLightMode = () => {
-        document.body.classList.toggle('light-mode');
-        const newMode = document.body.classList.contains('light-mode');
-        setIsLightMode(newMode);
-
-        // Save the mode in localStorage
-        localStorage.setItem('theme', newMode ? 'light' : 'dark');
+        const next = !isLightMode;
+        document.body.classList.toggle('light-mode', next);
+        setIsLightMode(next);
+        localStorage.setItem('theme', next ? 'light' : 'dark');
     };
+
+    const navBtnStyle = { padding: '6px 12px', fontSize: '14px', marginLeft: '0.5rem' };
 
     return (
         <>
-            {/* Header with Logo and Navbar */}
+            {/* Logo */}
             <div className="header-logo">
                 <Link to="/">
                     <img
-                        src={isLightMode ? `${process.env.PUBLIC_URL}/media/ninjatp.png` : `${process.env.PUBLIC_URL}/media/ninjatpd.png`}
+                        src={
+                            isLightMode
+                                ? `${process.env.PUBLIC_URL}/media/ninjatp.png`
+                                : `${process.env.PUBLIC_URL}/media/ninjatpd.png`
+                        }
                         alt="Home"
                         className="ninja-logo"
                     />
                 </Link>
             </div>
 
-            <div className="navbar">
-                {/* Light Mode Button */}
-                <button
-                    className="light-mode-btn"
-                    onClick={toggleLightMode}
-                    style={{
-                        backgroundColor: isLightMode ? '#ffffff' : '#000000',
-                        color: isLightMode ? '#000000' : '#ffffff',
-                    }}
-                >
+            {/* Fixed Navbar */}
+            <div
+                className="navbar"
+                style={{
+                    position: 'fixed',
+                    top: '10px',
+                    left: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    zIndex: 1000
+                }}
+            >
+                <button className="light-mode-btn" onClick={toggleLightMode} style={navBtnStyle}>
                     {isLightMode ? 'Dark Mode' : 'Light Mode'}
                 </button>
 
-                {/* Conditionally Render Logout Button */}
-                {location.pathname === '/dashboard' && isLoggedIn && (
-                    <button
-                        className="logout-btn"
-                        onClick={handleLogout}
-                        style={{
-                            backgroundColor: 'red',
-                            color: 'white',
-                        }}
-                    >
-                        Logout
-                    </button>
+                {isLoggedIn && (
+                    <>
+                        <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+                            <button className="enter-btn" style={navBtnStyle}>Dashboard</button>
+                        </Link>
+                        <Link to="/challenges" style={{ textDecoration: 'none' }}>
+                            <button className="enter-btn" style={navBtnStyle}>Challenges</button>
+                        </Link>
+                        <button className="logout-btn" onClick={handleLogout} style={navBtnStyle}>
+                            Logout
+                        </button>
+                    </>
                 )}
             </div>
 
-            {/* App Routes */}
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route
-                    path="/login"
-                    element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login setIsLoggedIn={setIsLoggedIn} />}
-                />
-                <Route
-                    path="/register"
-                    element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />}
-                />
-                <Route
-                    path="/dashboard"
-                    element={isLoggedIn ? <Dashboard handleLogout={handleLogout} /> : <Navigate to="/login" />}
-                />
-            </Routes>
+            {/* Push content down below navbar */}
+            <main style={{ paddingTop: '60px' }}>
+                <Routes>
+                    {/* Public */}
+                    <Route path="/" element={<Home />} />
+                    <Route
+                        path="/login"
+                        element={
+                            isLoggedIn
+                                ? <Navigate to="/dashboard" replace />
+                                : <Login setIsLoggedIn={setIsLoggedIn} />
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            isLoggedIn
+                                ? <Navigate to="/dashboard" replace />
+                                : <Register />
+                        }
+                    />
+
+                    {/* Protected */}
+                    <Route
+                        path="/dashboard"
+                        element={
+                            isLoggedIn
+                                ? <Dashboard handleLogout={handleLogout} />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+                    <Route
+                        path="/challenges"
+                        element={
+                            isLoggedIn
+                                ? <ChallengeList />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+                    <Route
+                        path="/challenges/:id"
+                        element={
+                            isLoggedIn
+                                ? <ChallengeDetail />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+
+                    {/* Fallback */}
+                    <Route
+                        path="*"
+                        element={
+                            isLoggedIn
+                                ? <Navigate to="/dashboard" replace />
+                                : <Navigate to="/login" replace />
+                        }
+                    />
+                </Routes>
+            </main>
         </>
     );
 };

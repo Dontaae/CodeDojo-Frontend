@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import API from '../api';
 
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
@@ -10,10 +10,10 @@ const Login = ({ setIsLoggedIn }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://cododojo-backend.onrender.com/login', { username, password });
+            const response = await API.post('/login', { username, password });
             const token = response.data.access_token;
 
             if (stayLoggedIn) {
@@ -24,7 +24,7 @@ const Login = ({ setIsLoggedIn }) => {
 
             setErrorMessage('');
             setIsLoggedIn(true);
-            navigate('/dashboard');
+            navigate('/challenges');
         } catch (err) {
             setErrorMessage(err.response?.data?.message || 'Invalid credentials!');
         }
@@ -44,7 +44,7 @@ const Login = ({ setIsLoggedIn }) => {
                         type="text"
                         id="username"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={e => setUsername(e.target.value)}
                         required
                     />
                 </div>
@@ -54,7 +54,7 @@ const Login = ({ setIsLoggedIn }) => {
                         type={showPassword ? 'text' : 'password'}
                         id="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={e => setPassword(e.target.value)}
                         required
                         style={{ paddingRight: '50px' }}
                     />
@@ -67,17 +67,18 @@ const Login = ({ setIsLoggedIn }) => {
                         type="checkbox"
                         id="stayLoggedIn"
                         checked={stayLoggedIn}
-                        onChange={(e) => setStayLoggedIn(e.target.checked)}
+                        onChange={e => setStayLoggedIn(e.target.checked)}
                     />
                     <label htmlFor="stayLoggedIn">Stay Logged In</label>
                 </div>
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
                 <button type="submit">Login</button>
             </form>
-            <p>
-                Don't have an account?{' '}
-                <a href="/register" className="switch-link">Register</a>
-            </p>
+            <div className="switch-link-container">
+                <Link to="/register" className="switch-link">
+                    Don't have an account? Register
+                </Link>
+            </div>
         </div>
     );
 };
